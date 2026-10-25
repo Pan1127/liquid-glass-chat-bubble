@@ -3,7 +3,7 @@ const code=fs.readFileSync(__dirname+'/glass-bubbles.js','utf8');
 const extracted=JSON.parse(code.match(/const DESK_FRAGMENT = (.*);/)[1]);assert.equal(extracted,fs.readFileSync(__dirname+'/desk-fragment.glsl','utf8'));
 const callbacks=[],events={},draws=[];let glCalls=0,observer;
 function classes(){const s=new Set();return {add:x=>s.add(x),remove:x=>s.delete(x),contains:x=>s.has(x),toggle:(x,on)=>on?s.add(x):s.delete(x)}}
-const context={setTransform(){},fillRect(){},drawImage(...a){draws.push(a)},getImageData(x,y,w,h){return {data:new Uint8Array(w*h*4)}}};
+const context={setTransform(){},fillRect(){},clearRect(){},save(){},beginPath(){},roundRect(){},clip(){},restore(){},drawImage(...a){draws.push(a)},getImageData(x,y,w,h){return {data:new Uint8Array(w*h*4)}}};
 const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,getAttribLocation:()=>0,getUniformLocation:(p,n)=>n,drawArrays(){glCalls++}}, {get:(o,k)=>k in o?o[k]:/^[A-Z_0-9]+$/.test(k)?1:()=>({})});
 function canvas(){return {width:300,height:150,style:{},classList:classes(),setAttribute(){},getContext:k=>k==='webgl2'?gl:context,addEventListener(){},remove(){this.removed=true}}}
 const app={dataset:{},getClientRects:()=>[1],getBoundingClientRect:()=>({x:0,y:0,left:0,top:0,width:390,height:844})};
