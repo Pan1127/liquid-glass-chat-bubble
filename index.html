@@ -1,16 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Liquid Glass Chat Bubble</title>
+  <title>Desk Shader · Liquid Glass Chat Bubbles</title>
   <link rel="stylesheet" href="glass-bubbles.css">
 </head>
-<body>
-  <main class="messages" id="messages">
-    <div class="message-row them"><div class="bubble"><span>The wallpaper bends through the bubble.</span><time>12:23</time></div></div>
+<body data-glass-host>
+  <main class="messages" id="messages" aria-label="Liquid glass chat demo">
+    <div class="message-row them"><div class="bubble"><span>这一块玻璃会折射它背后的壁纸。</span><time>00:07</time></div></div>
+    <div class="message-row me"><div class="bubble"><span>边缘的透镜、色散和高光，和雨夜书桌使用同一份着色器。</span><time>00:08</time></div></div>
+    <div class="message-row them"><div class="bubble"><span>滚出屏幕的气泡会释放画布，长聊天也不会把每条消息一直留在 GPU 里。</span><time>00:09</time></div></div>
+    <div class="message-row me"><div class="bubble"><span>文字仍然是可选择、可复制、可交互的 DOM。</span><time>00:10</time></div></div>
   </main>
-  <script src="vendor/hyalite.js"></script>
   <script src="glass-bubbles.js"></script>
 </body>
 </html>
