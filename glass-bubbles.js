@@ -59,8 +59,8 @@ for(const {b,r} of active){let c=layers.get(b);if(!c){c=document.createElement('
 // Allocate just the visible slice even for a very long message.
 const l=Math.max(area.left,r.left),t=Math.max(area.top,r.top),right=Math.min(area.right,r.right),bottom=Math.min(area.bottom,r.bottom);
 const w=Math.max(1,Math.round((right-l)*dpr)),h=Math.max(1,Math.round((bottom-t)*dpr));if(c.width!==w)c.width=w;if(c.height!==h)c.height=h;
-c.style.cssText=`left:${l-r.left}px;top:${t-r.top}px;width:${right-l}px;height:${bottom-t}px;clip-path:inset(${r.top-t}px ${right-r.right}px ${bottom-r.bottom}px ${r.left-l}px round ${parseFloat(getComputedStyle(b).borderTopLeftRadius)||22}px)`;
-c.getContext('2d').drawImage(gpu,(l-area.left)*dpr,(t-area.top)*dpr,(right-l)*dpr,(bottom-t)*dpr,0,0,w,h);
+c.style.cssText=`left:${l-r.left}px;top:${t-r.top}px;width:${right-l}px;height:${bottom-t}px`;
+const cg=c.getContext('2d'),radius=(parseFloat(getComputedStyle(b).borderTopLeftRadius)||22)*dpr;cg.clearRect(0,0,w,h);cg.save();cg.beginPath();cg.roundRect((r.left-l)*dpr,(r.top-t)*dpr,r.width*dpr,r.height*dpr,radius);cg.clip();cg.drawImage(gpu,(l-area.left)*dpr,(t-area.top)*dpr,(right-l)*dpr,(bottom-t)*dpr,0,0,w,h);cg.restore();
 const dark=ink(r,area,dpr);b.style.setProperty('--desk-glass-ink',dark?'#fffdf9':'#242126');b.style.setProperty('--desk-glass-text-shadow',dark?'0 1px 3px #000c':'0 1px 2px #ffffffb3');b.classList.add('desk-glass-ready');}
 for(const b of [...layers.keys()])if(!active.some(x=>x.b===b))removeLayer(b);
 app.dataset.deskGlassStatus='ready';if(performance.now()<settleUntil)queue();
