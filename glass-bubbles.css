@@ -1,33 +1,14 @@
-:root { --bubble-opacity: .30; }
+:root { color-scheme: dark; }
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; }
-body {
-  overflow: hidden;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at 20% 10%, #8b6da7, transparent 28%), radial-gradient(circle at 85% 80%, #274d71, transparent 30%), #10131a;
-}
-.messages { height: 100%; overflow: auto; padding: max(32px, env(safe-area-inset-top)) 20px max(32px, env(safe-area-inset-bottom)); }
-.message-row { display: flex; margin: 18px 0; }
-.message-row.them { justify-content: flex-start; }
-.message-row.me { justify-content: flex-end; }
-.bubble {
-  position: relative;
-  max-width: min(78%, 620px);
-  padding: 10px 16px 24px;
-  overflow: visible;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.48);
-  border-radius: 22px;
-  background: radial-gradient(125% 110% at 14% -22%,rgba(255,255,255,calc(var(--bubble-opacity) * .64)),rgba(255,255,255,calc(var(--bubble-opacity) * .10)) 34%,transparent 58%), linear-gradient(118deg,rgba(255,255,255,calc(var(--bubble-opacity) * .22)),rgba(255,255,255,calc(var(--bubble-opacity) * .05)) 48%,rgba(216,204,226,calc(var(--bubble-opacity) * .13)));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.72), inset 1px 0 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(58,45,67,.10), 0 8px 22px rgba(43,35,50,.10);
-  backdrop-filter: var(--hyalite,blur(10px) saturate(145%) contrast(103%));
-  -webkit-backdrop-filter: var(--hyalite,blur(10px) saturate(145%) contrast(103%));
-}
-.bubble::before, .bubble::after { content: ""; position: absolute; inset: 1px; z-index: 0; pointer-events: none; border-radius: 20px; background-color: transparent; }
-.bubble::before { background-image: var(--safari-lens-image,linear-gradient(128deg,rgba(255,255,255,.58),transparent 28%,transparent 66%,rgba(255,255,255,.22))); background-size: var(--safari-lens-size,cover); background-position: var(--safari-lens-position,center); background-repeat: no-repeat; filter: saturate(1.18) contrast(1.06); opacity: calc(.16 + var(--bubble-opacity) * .85); }
-.bubble::after { background: transparent; border: 1px solid rgba(255,255,255,.30); box-shadow: inset 0 0 14px rgba(255,255,255,.12); }
-.bubble > * { position: relative; z-index: 1; }
-.bubble time { position: absolute; right: 12px; bottom: 7px; font-size: 11px; opacity: .68; }
-.bubble:not(.is-glass-active) { backdrop-filter: none; -webkit-backdrop-filter: none; }
-.bubble:not(.is-glass-active)::before { background-image: none; }
-@media (prefers-reduced-transparency: reduce) { .bubble { background: rgba(30,34,44,.92); backdrop-filter: none; -webkit-backdrop-filter: none; } }
+html, body { height:100%; margin:0; }
+body { overflow:hidden; background:#111; color:#fff; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background-image:url("demo-wallpaper.svg"); background-size:cover; background-position:center; }
+.messages { height:100%; overflow:auto; padding:max(34px,env(safe-area-inset-top)) 18px max(34px,env(safe-area-inset-bottom)); }
+.message-row { display:flex; margin:18px 0; }
+.message-row.them { justify-content:flex-start; }
+.message-row.me { justify-content:flex-end; }
+.bubble { position:relative; isolation:isolate; max-width:min(78%,620px); padding:11px 16px 27px; overflow:visible; border:0; border-radius:22px; background:rgba(255,255,255,.12); box-shadow:0 3px 10px #0002; color:var(--desk-glass-ink,#fff); text-shadow:var(--desk-glass-text-shadow,0 1px 3px #000c); }
+.bubble.desk-glass-ready { background:transparent; }
+.bubble > :not(.desk-glass-slice) { position:relative; z-index:1; }
+.bubble time { position:absolute; right:12px; bottom:7px; z-index:2; font-size:11px; opacity:.72; }
+.bubble > canvas.desk-glass-slice { position:absolute; display:block; z-index:-1; pointer-events:none; margin:0; padding:0; border:0; max-width:none; max-height:none; }
+@media(prefers-reduced-transparency:reduce){.bubble,.bubble.desk-glass-ready{background:rgba(31,34,42,.92)}.bubble>.desk-glass-slice{display:none!important}}
